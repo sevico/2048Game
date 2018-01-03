@@ -76,3 +76,72 @@ function generateOneNumber() {
     return true;
 
 }
+
+$(document).keydown(function (event) {
+    switch (event.keyCode) {
+        case 37:
+            if(moveLeft()){
+                generateOneNumber();
+                isGameOver();
+            }
+            break;
+        case 38:
+            if(moveUp()){
+                generateOneNumber();
+                isGameOver();
+            }
+            break;
+        case 39:
+            if(moveRight()){
+                generateOneNumber();
+                isGameOver();
+            }
+            break
+        case 40:
+            if(moveLeft()){
+                generateOneNumber();
+                isGameOver();
+            }
+            break
+        default:
+            break
+    }
+});
+function isGameOver() {
+    return false;
+}
+function moveLeft() {
+    if(!canMoveLeft(board)){
+        return false;
+    }
+    for(var i=0;i<4;i++) {
+        for(var j=1;j<4;j++) {
+            if(board[i][j]!=0) {
+                for(var k=0;k<j;k++) {
+                    if(board[i][k]==0 && noBlockHorizontal(i,k,j,board)){
+                        //move
+                        showMoveAnimation(i,j,i,k);
+                        board[i][k] = board[i][j];
+                        board[i][j] = 0;
+
+                        continue;
+                    }else if(board[i][k]==board[i][j] && noBlockHorizontal(i,k,j,board)) {
+                        //move
+                        //add
+                        showMoveAnimation(i,j,i,k);
+                        board[i][k] += board[i][j];
+                        board[i][j] = 0;
+                        continue
+                    }
+
+                }
+            }
+        }
+    }
+    setTimeout("updateBoardView()", 200);
+
+    return true;
+
+}
+
+
