@@ -28,6 +28,7 @@ function init() {
         }
     }
     updateBoardView()
+    score=0
 }
 function updateBoardView() {
     $('.number-cell').remove();
@@ -81,26 +82,26 @@ $(document).keydown(function (event) {
     switch (event.keyCode) {
         case 37:
             if(moveLeft()){
-                generateOneNumber();
-                isGameOver();
+                setTimeout("generateOneNumber()",210);
+                setTimeout('isGameOver()',300);
             }
             break;
         case 38:
             if(moveUp()){
-                generateOneNumber();
-                isGameOver();
+                setTimeout("generateOneNumber()",210)
+                setTimeout("isGameOver()",300)
             }
             break;
         case 39:
             if(moveRight()){
-                generateOneNumber();
-                isGameOver();
+                setTimeout("generateOneNumber()",210)
+                setTimeout("isGameOver()",300)
             }
             break
         case 40:
             if(moveDown()){
-                generateOneNumber();
-                isGameOver();
+                setTimeout("generateOneNumber()",210)
+                setTimeout("isGameOver()",300)
             }
             break
         default:
@@ -108,7 +109,12 @@ $(document).keydown(function (event) {
     }
 });
 function isGameOver() {
-    return false;
+    if(nospace(board) && noMove(board)) {
+        gameOver()
+    }
+}
+function gameOver() {
+    alert("game over!")
 }
 function moveLeft() {
     if(!canMoveLeft(board)){
@@ -131,6 +137,9 @@ function moveLeft() {
                         showMoveAnimation(i,j,i,k);
                         board[i][k] += board[i][j];
                         board[i][j] = 0;
+                        //add score
+                        score = score+board[i][k]
+                        updateScore(score)
                         continue
                     }
 
@@ -195,6 +204,8 @@ function moveRight() {
                         showMoveAnimation(i,j,i,k);
                         board[i][k] += board[i][j];
                         board[i][j] = 0;
+                        score=score+board[i][k]
+                        updateScore(score)
                         continue
                     }
 
@@ -223,6 +234,8 @@ function moveUp() {
                         showMoveAnimation(i,j,k,j);
                         board[k][j] = board[k][j] + board[i][j]
                         board[i][j]=0
+                        score=score+board[k][j]
+                        updateScore(score)
                         continue
                     }
                 }
@@ -251,6 +264,9 @@ function moveDown() {
                         showMoveAnimation(i,j,k,j);
                         board[k][j] = board[k][j] + board[i][j]
                         board[i][j]=0
+                        score=score+board[k][j]
+                        updateScore(score)
+
                         continue
                     }
                 }

@@ -1,3 +1,4 @@
+
 function showNumberWithAnimation(i, j, randNumber) {
     var numberCell = $("#number-cell-" + i + '-' + j);
     numberCell.css("background-color", getNumberBackgroundColor(randNumber));
@@ -21,4 +22,7 @@ function showMoveAnimation(fromx,fromy,tox ,toy) {
         left: getPosLeft(tox, toy)
     }, 200);
 
+}
+function updateScore(score) {
+    $("#score").text(score);
 }

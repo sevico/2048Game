@@ -145,3 +145,11 @@ function canMoveDown(board) {
     }
     return false;
 }
+
+function noMove(board) {
+    if (canMoveDown(board)||canMoveLeft(board) || canMoveRight(board) || canMoveUp(board)){
+        return false
+    }
+    return true
+
+}
